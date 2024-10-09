@@ -1,6 +1,5 @@
 import os
 import platform
-import subprocess
 import yaml
 from snakemake.script import snakemake
 from snakemake.shell import shell
@@ -19,18 +18,6 @@ def linux_copy(source, base, options, required_dependencies, log = '/LOG'):
 
 def windows_copy(source, base, options, required_dependencies, log = '/LOG+:logs/copy.log'):
 
-    options
-
-    robocopy_cmd = [
-        'robocopy',
-        source,
-        base,
-        # * Points to list contents instead of list itself
-        *options,
-        log,
-        *required_dependencies
-
-    ]
     robocopy_cmd = f'robocopy {source} {base} {options} {log} {required_dependencies}'
 
     print(f"Copying required items from {source} to {base} using robocopy...")
