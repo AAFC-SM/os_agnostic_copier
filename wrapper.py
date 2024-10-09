@@ -8,13 +8,17 @@ from snakemake.shell import shell
 
 def linux_copy(source, base, options, required_dependencies, log = '/LOG'):
     # TO-DO -> check for rsync version
-    rsync_cmd = [
-        'rsync',
-        *options,
-        source,
-        base,
-        log
-    ]
+    
+    rsync_cmd = f'rsync {options} {source} {base} {required_dependencies} {log}'
+
+    print(f"Copying required items from {source} to {base} using rsync...")
+    try:
+        shell(rsync_cmd)
+        print("Successfully copied required items.")
+    except Exception as e:
+        print(f"Exception during rsync execution: {e}")
+    return
+
 
 def windows_copy(source, base, options, required_dependencies, log = '/LOG+:logs/copy.log'):
 
