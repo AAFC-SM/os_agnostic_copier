@@ -1,6 +1,7 @@
 import os
 import platform
 import yaml
+from pathlib import Path
 from snakemake.script import snakemake
 from snakemake.shell import shell
 
@@ -48,9 +49,9 @@ def main():
     }
 
     # Extract from config
-    source = snakemake.config['network_source']
+    source = Path(snakemake.config['network_source'])
     options = snakemake.config['options', []]
-    base_dir = snakemake.config['base_dir']
+    base_dir = Path(snakemake.config['base_dir'])
     required_dirs = snakemake.config['required_dirs', []]
     required_files = snakemake.config['required_files', []]
 
@@ -59,6 +60,7 @@ def main():
     required_files = " ".join(required_files)
 
     # Do required path manipulation
+
 
 
     # Check for os
@@ -71,7 +73,7 @@ def main():
         agnostic_copy(source, base_dir, options, required_files)
 
         for dir in required_dirs:
-            agnostic_copy(source, base_dir, options, dir)
+            agnostic_copy(str(source/Path(dir)), str(base_dir/Path(dir)), options, required_dependencies='')
     else:
         print("\n Your system is not supported")
 
