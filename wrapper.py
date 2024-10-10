@@ -6,7 +6,7 @@ from snakemake.shell import shell
 
 # Load config file path
 
-def linux_copy(source, base, options, required_dependencies, log = '/LOG'):
+def linux_copy(source:str, base:str, options:str, required_dependencies:str, log = '/LOG') -> None:
     # TO-DO -> check for rsync version
 
     rsync_cmd = f'rsync {options} {source} {base} {required_dependencies} {log}'
@@ -20,7 +20,7 @@ def linux_copy(source, base, options, required_dependencies, log = '/LOG'):
     return
 
 
-def windows_copy(source, base, options, required_dependencies, log = '/LOG+:logs/copy.log'):
+def windows_copy(source:str, base:str, options:str, required_dependencies:str, log = '/LOG+:logs/copy.log') -> None:
 
     robocopy_cmd = f'robocopy {source} {base} {options} {log} {required_dependencies}'
 
@@ -57,6 +57,9 @@ def main():
     # Convert to single string as snakemake.shell requires
     options = " ".join(options)
     required_files = " ".join(required_files)
+
+    # Do required path manipulation
+
 
     # Check for os
     my_platform = platform.system()
