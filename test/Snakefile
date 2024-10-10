@@ -1,0 +1,11 @@
+rule all:
+    input:
+        'resources/a-test-copy'
+
+
+rule os_agnostic_copier:
+
+    output:
+        'resources/a-test-copy'
+    wrapper:
+        '../os_agnostic_copier'
