@@ -8,7 +8,7 @@ from snakemake.shell import shell
 
 def linux_copy(source, base, options, required_dependencies, log = '/LOG'):
     # TO-DO -> check for rsync version
-    
+
     rsync_cmd = f'rsync {options} {source} {base} {required_dependencies} {log}'
 
     print(f"Copying required items from {source} to {base} using rsync...")
@@ -41,7 +41,11 @@ def windows_copy(source, base, options, required_dependencies, log = '/LOG+:logs
 # Execute copy process
 
 def main():
-    config_file = snakemake.params.get('config_path')
+    # Map copy functions to dict
+    copy_functions = {
+        'Linux': linux_copy,
+        'Windows': windows_copy
+    }
 
     # Extract from config
     source = snakemake.config['network_source']
@@ -57,15 +61,14 @@ def main():
     # Check for os
     my_platform = platform.system()
 
-    if my_platform == 'Linux':
-    # Check if rsync package is installed
-        test = 'test'
-    elif my_platform == 'Windows':
+    # Retrieve relevant copy_func
+    if my_platform in copy_functions:
 
-        windows_copy(source, base_dir, options, required_files)
+        agnostic_copy = copy_functions[my_platform]
+        agnostic_copy(source, base_dir, options, required_files)
 
         for dir in required_dirs:
-            windows_copy(source, base_dir, options, dir)
+            agnostic_copy(source, base_dir, options, dir)
     else:
         print("\n Your system is not supported")
 
