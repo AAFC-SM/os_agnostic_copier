@@ -1,5 +1,5 @@
 name: os_agnostic_copier
-description: |
+description:
   os_agnostic_copier allows for the copying of files and directories from a specified network source
   to a destination directory for both windows and linux systems using either robocopy or rsync. 
 url: https://gccode.ssc-spc.gc.ca/sustainabilityMetrics/os_agnostic_copier
