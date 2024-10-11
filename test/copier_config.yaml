@@ -1,20 +1,20 @@
 required_dirs:
-  - "SLC_Weather_WRH"
-  - "Library"
-  - "DND/DNDS"
-  - "CO2" #may not need?
+  - "test_dir_A"
+  - "test_dir_D"
   
 required_files:
-  - "DNDC95.exe"
-  - "DNDCgo.dll"
-  - "MFC42D.DLL"
-  - "MFCO42D.DLL"
-  - "MSVCIRTD.DLL"
-  - "MSVCP60D.DLL"
-  - "MSVCRTD.DLL"
+  - "test_file_B.txt"
 
+options:
+  - '/e'
+  - '/R:0'
+  - '/W:0'
+  - '/mt:12'
 # Set base_dir to be the desired path of destination relative to current working directory
-base_dir: "../../" 
+base_dir: "resources" 
 
 # Replace Z: if network drive is mounted to a different point
-network_source: "Z:/_smToolsData/d_waterBudget/2021/Model"
+network_source: "Z:/Z_Co-op/2024_Saifullah_Shaikh/os_agnostic_copier_test"
+
+# rsync [option] [origin] [destination]
+# robocopy <source> <destination> [<file>[ ...]] [<options>]

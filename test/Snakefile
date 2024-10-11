@@ -1,13 +1,17 @@
+configfile: 'copier_config.yaml'
 rule all:
     input:
-        'resources/a-test-copy'
+        directory('resources/test_dir_A'),
+        directory('resources/test_dir_D'),
+        'resources/test_file_B.txt'
 
 
 rule os_agnostic_copier:
-
-    config:
-        'copier_config.yaml'
     output:
-        'resources/a-test-copy'
+        directory('resources/test_dir_A'),
+        directory('resources/test_dir_D'),
+        'resources/test_file_B.txt'
+
+
     wrapper:
-        '../os_agnostic_copier'
+        "file:../"

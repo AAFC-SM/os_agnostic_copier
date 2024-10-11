@@ -21,10 +21,10 @@ def linux_copy(source:str, base:str, options:str, required_dependencies:str, log
     return
 
 
-def windows_copy(source:str, base:str, options:str, required_dependencies:str, log = '/LOG+:logs/copy.log') -> None:
+def windows_copy(source:str, base:str, options:str, required_dependencies:str, log = '/log:logs/copy.log') -> None:
 
-    robocopy_cmd = f'robocopy {source} {base} {options} {log} {required_dependencies}'
-
+    robocopy_cmd = f'robocopy {source} {base} {required_dependencies} {log} {options}'
+    print(robocopy_cmd)
     print(f"Copying required items from {source} to {base} using robocopy...")
     try:
         shell(robocopy_cmd)
@@ -50,10 +50,11 @@ def main():
 
     # Extract from config
     source = Path(snakemake.config['network_source'])
-    options = snakemake.config['options', []]
+    options = snakemake.config['options']
+    print(options)
     base_dir = Path(snakemake.config['base_dir'])
-    required_dirs = snakemake.config['required_dirs', []]
-    required_files = snakemake.config['required_files', []]
+    required_dirs = snakemake.config['required_dirs']
+    required_files = snakemake.config['required_files']
 
     # Convert to single string as snakemake.shell requires
     options = " ".join(options)
