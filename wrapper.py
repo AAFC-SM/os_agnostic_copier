@@ -53,9 +53,26 @@ def main():
     options = snakemake.config['options']
     print(options)
     base_dir = Path(snakemake.config['base_dir'])
-    required_dirs = snakemake.config['required_dirs']
-    required_files = snakemake.config['required_files']
+    #required_dirs = snakemake.config['required_dirs']
+    #required_files = snakemake.config['required_files']
 
+    # Retrieve required_dirs and requried_files from snakemake.output 
+    # Maybe retrieve 'options' through parameter?
+    required_dirs = snakemake.output.required_dirs
+    required_files = snakemake.output.required_files
+
+    print( required_dirs)
+    print(required_files)
+
+    for i in range(len(required_dirs)):
+        required_dirs[i] = Path(required_dirs[i]).name
+
+    for i in range(len(required_files)):
+        required_files[i] = Path(required_files[i]).name    
+
+    
+    print( required_dirs)
+    print(required_files)
     # Convert to single string as snakemake.shell requires
     options = " ".join(options)
     required_files = " ".join(required_files)
