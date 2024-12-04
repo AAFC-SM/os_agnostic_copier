@@ -92,6 +92,10 @@ def main():
 
         for dir in required_dirs:
             agnostic_copy(str(source/Path(dir)), str(base_dir/Path(dir)), options, required_dependencies='')
+        
+        if snakemake.output.copier_completion_marker:
+            with open(snakemake.output.copier_completion_marker, "w") as file:
+                pass
     else:
         print("\n Your system is not supported")
 
