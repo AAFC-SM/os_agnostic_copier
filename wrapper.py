@@ -23,6 +23,7 @@ def linux_copy(source:str, base:str, options:str, required_dependencies:str, log
 
 def windows_copy(source:str, base:str, options:str, required_dependencies:str, log = '/log:logs/copy.log') -> None:
 
+    
     robocopy_cmd = f'robocopy {source} {base} {required_dependencies} {log} {options}'
     print(robocopy_cmd)
     print(f"Copying required items from {source} to {base} using robocopy...")
@@ -88,10 +89,10 @@ def main():
     if my_platform in copy_functions:
 
         agnostic_copy = copy_functions[my_platform]
-        agnostic_copy(source, base_dir, options, required_files)
+        agnostic_copy(source, base_dir, options, required_files, log = '')
 
         for dir in required_dirs:
-            agnostic_copy(str(source/Path(dir)), str(base_dir/Path(dir)), options, required_dependencies='')
+            agnostic_copy(str(source/Path(dir)), str(base_dir/Path(dir)), options, required_dependencies='', log = '')
         
         if snakemake.output.copier_completion_marker:
             with open(snakemake.output.copier_completion_marker, "w") as file:
